@@ -128,12 +128,12 @@ public class RegisterJFrame extends JFrame implements ActionListener {
                 }
 
                 UsuariosManejador.aniadeUsuario(nombre, contrasenia);
-                JOptionPane.showInternalMessageDialog(null, palabras((byte) 9));
+                JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 9));
                 new LoginJFrame();
                 dispose();
             }
             private void mostrarError(String mensaje) {
-                JOptionPane.showInternalMessageDialog(null, mensaje, "", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showInternalMessageDialog(getContentPane(), mensaje, "", JOptionPane.WARNING_MESSAGE);
             }
         });
         getContentPane().add(registrarse);

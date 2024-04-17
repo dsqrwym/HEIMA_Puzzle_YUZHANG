@@ -131,16 +131,16 @@ public class LoginJFrame extends JFrame implements ActionListener {
                     if (codigoDeVerificacion.equals(verificacionIntro.getText())) {
                         UsuariosManejador.Usuario usuario = UsuariosManejador.getUsuario(UsuariosManejador.getPosiUsuario(nombreIntro.getText(), 0));
                         if (usuario == null) {
-                            JOptionPane.showInternalMessageDialog(null, palabras((byte) 6), "", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 6), "", JOptionPane.ERROR_MESSAGE);
                         } else if (!usuario.getContrasenia().equals(getContrasenia())) {
-                            JOptionPane.showInternalMessageDialog(null, palabras((byte) 7), "", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 7), "", JOptionPane.ERROR_MESSAGE);
                         } else {
                             GameJFrame game = new GameJFrame();
                             game.cargarDados(usuario);
                             dispose();
                         }
                     }else {
-                        JOptionPane.showInternalMessageDialog(null, palabras((byte) 8));
+                        JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 8));
                         codigoDeVerificacion = CodeUtil.getCode();
                     }
                 }
