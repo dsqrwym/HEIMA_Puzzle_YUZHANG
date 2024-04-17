@@ -10,7 +10,9 @@ public class LoginJFrame extends JFrame implements ActionListener {
     private final JMenuItem english = new JMenuItem("English");
     private final JMenuItem espanio = new JMenuItem("Español");
     private final JMenuItem chino = new JMenuItem("中文");
+    private JTextField nombreIntro;
     private JPasswordField contraseniaIntro;
+    private JTextField verificacionIntro;
     private String ojosIconDirectorio = "close";
     private String codigoDeVerificacion = CodeUtil.getCode();
 
@@ -62,7 +64,7 @@ public class LoginJFrame extends JFrame implements ActionListener {
         nombreUsuario.setBounds(175 - (anchura+10), 65, anchura+12, 20);
         getContentPane().add(nombreUsuario);
         //+10 是在两者间增加间隙。
-        JTextField nombreIntro = new JTextField();
+        nombreIntro = new JTextField();
         nombreIntro.setBounds(175, 65, 200, 20);
         getContentPane().add(nombreIntro);
 
@@ -93,7 +95,7 @@ public class LoginJFrame extends JFrame implements ActionListener {
         verificacion.setBounds(175 - (anchura+10), 186, anchura+12, 20);
         getContentPane().add(verificacion);
 
-        JTextField verificacionIntro = new JTextField();
+        verificacionIntro = new JTextField();
         verificacionIntro.setBounds(175, 186, 100, 20);
         getContentPane().add(verificacionIntro);
 
@@ -212,7 +214,9 @@ public class LoginJFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String comandos = e.getActionCommand();
-        String contrasenia = "";
+        String contrasenia = getContrasenia();
+        String nombre = nombreIntro.getText();
+        String verifica = verificacionIntro.getText();
         switch (comandos) {
             case "English":
                 App.cambiarIdiomas((byte) 1);
@@ -237,6 +241,8 @@ public class LoginJFrame extends JFrame implements ActionListener {
         conficurarMenu();
         iniciarComponentes();
         contraseniaIntro.setText(contrasenia);
+        nombreIntro.setText(nombre);
+        verificacionIntro.setText(verifica);
     }
 
     private String getContrasenia() {

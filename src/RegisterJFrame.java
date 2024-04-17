@@ -12,6 +12,7 @@ public class RegisterJFrame extends JFrame implements ActionListener {
     private final JMenuItem espanio = new JMenuItem("Español");
     private final JMenuItem chino = new JMenuItem("中文");
     private JPasswordField contraseniaIntro;
+    private JTextField nombreIntro;
     private String ojosIconDirectorio = "close";
     private JPasswordField contraseniaIntroRepite;
     public RegisterJFrame(){
@@ -43,7 +44,7 @@ public class RegisterJFrame extends JFrame implements ActionListener {
         nombreUsuario.setBounds(175 - (anchura+10), 65, anchura+12, 20);
         getContentPane().add(nombreUsuario);
         //+10 是在两者间增加间隙。
-        JTextField nombreIntro = new JTextField();
+        nombreIntro = new JTextField();
         nombreIntro.setBounds(175, 65, 200, 20);
         getContentPane().add(nombreIntro);
 
@@ -112,6 +113,7 @@ public class RegisterJFrame extends JFrame implements ActionListener {
 
                 if (contrasenia.isEmpty()) {
                     mostrarError(palabras((byte) 7));
+                    nombreIntro.setText(nombre);
                     return;
                 }
 
@@ -190,7 +192,9 @@ public class RegisterJFrame extends JFrame implements ActionListener {
     }
     public void actionPerformed(ActionEvent e) {
         String comandos = e.getActionCommand();
-        String contrasenia = "";
+        String contrasenia = getContrasenia(contraseniaIntro);
+        String contraseniaRepite = getContrasenia(contraseniaIntroRepite);
+        String nombre = nombreIntro.getText();
         switch (comandos) {
             case "English":
                 App.cambiarIdiomas((byte) 1);
@@ -215,6 +219,8 @@ public class RegisterJFrame extends JFrame implements ActionListener {
         conficurarMenu();
         iniciarComponentes();
         contraseniaIntro.setText(contrasenia);
+        contraseniaIntroRepite.setText(contraseniaRepite);
+        nombreIntro.setText(nombre);
     }
 
     private String getContrasenia(JPasswordField contraseniaIntro) {
