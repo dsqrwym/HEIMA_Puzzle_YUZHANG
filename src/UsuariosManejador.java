@@ -34,14 +34,6 @@ public class UsuariosManejador {
             crecerArray(new Usuario(nombre, contrasenia));
         }
     }
-    public static void aniadeUsuario(String nombre, String contrasenia, String directorio, int pasos, byte[][] posiciones, byte posicionVacioX, byte posicionVacioY){
-        if (cantidad < usuarios.length) {
-            usuarios[cantidad] = new Usuario(nombre, contrasenia, directorio, pasos, posiciones, posicionVacioX, posicionVacioY);
-            cantidad++;
-        }else {
-            crecerArray(new Usuario(nombre, contrasenia, directorio, pasos, posiciones, posicionVacioX, posicionVacioY));
-        }
-    }
 
     private static void crecerArray(Usuario usuario) {
         Usuario[] nuevoArray = new Usuario[usuarios.length+1];
