@@ -128,12 +128,15 @@ public class LoginJFrame extends JFrame implements ActionListener {
 
             private void examinar() {
                 if (UsuariosManejador.getCantidad() != 0){
+                    String nombre = nombreIntro.getText();
+                    String contrasenia = getContrasenia();
                     if (codigoDeVerificacion.equals(verificacionIntro.getText())) {
                         UsuariosManejador.Usuario usuario = UsuariosManejador.getUsuario(UsuariosManejador.getPosiUsuario(nombreIntro.getText(), 0));
                         if (usuario == null) {
                             JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 6), "", JOptionPane.ERROR_MESSAGE);
                         } else if (!usuario.getContrasenia().equals(getContrasenia())) {
                             JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 7), "", JOptionPane.ERROR_MESSAGE);
+                            nombreIntro.setText(nombre);
                         } else {
                             GameJFrame game = new GameJFrame();
                             game.cargarDados(usuario);
@@ -142,6 +145,8 @@ public class LoginJFrame extends JFrame implements ActionListener {
                     }else {
                         JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 8));
                         codigoDeVerificacion = CodeUtil.getCode();
+                        nombreIntro.setText(nombre);
+                        contraseniaIntro.setText(contrasenia);
                     }
                 }
             }
