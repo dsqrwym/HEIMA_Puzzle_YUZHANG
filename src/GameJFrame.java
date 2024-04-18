@@ -151,11 +151,11 @@ public class GameJFrame extends JFrame implements ActionListener {
     private void mostarImagenCompleta() {
         getContentPane().removeAll();
 
-        JLabel imagen = new JLabel(new ImageIcon("imagenes/"+directorio+"all.jpg"));
+        JLabel imagen = new JLabel(new ImageIcon("src/imagenes/"+directorio+"all.jpg"));
         imagen.setBounds(91, 126, 420, 420);
         getContentPane().add(imagen);
 
-        JLabel background = new JLabel(new ImageIcon("imagenes/background.png"));
+        JLabel background = new JLabel(new ImageIcon("src/imagenes/background.png"));
         background.setBounds(40, 40, 508, 560);
         getContentPane().add(background);
 
@@ -223,7 +223,7 @@ public class GameJFrame extends JFrame implements ActionListener {
     private void iniciarImagenes() {
         getContentPane().removeAll();
         if (victoria()){
-            JLabel victoria = new JLabel(new ImageIcon("imagenes/" +palabras((byte)5) +".png"));
+            JLabel victoria = new JLabel(new ImageIcon("src/imagenes/" +palabras((byte)5) +".png"));
             victoria.setBounds(150, 180, 300, 300);
             getContentPane().add(victoria);
         }
@@ -239,14 +239,14 @@ public class GameJFrame extends JFrame implements ActionListener {
                 if (posi == 0){
                     continue;
                 }
-                JLabel imagenes = new JLabel(new ImageIcon("imagenes/"+directorio +posi  +".jpg"));
+                JLabel imagenes = new JLabel(new ImageIcon("src/imagenes/"+directorio +posi  +".jpg"));
                 imagenes.setBounds(x * 105 +91, y * 105 +126, 105, 105);
                 imagenes.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
                 getContentPane().add(imagenes);
             }
         }
 
-        JLabel background = new JLabel(new ImageIcon("imagenes/background.png"));
+        JLabel background = new JLabel(new ImageIcon("src/imagenes/background.png"));
         background.setBounds(40, 40, 508, 560);
         getContentPane().add(background);
         getContentPane().repaint();

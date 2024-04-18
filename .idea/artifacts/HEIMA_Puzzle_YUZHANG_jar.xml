@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="HEIMA_Puzzle_YUZHANG:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/HEIMA_Puzzle_YUZHANG_jar</output-path>
+    <root id="archive" name="HEIMA_Puzzle_YUZHANG.jar">
+      <element id="module-output" name="HEIMA_Puzzle_YUZHANG" />
+    </root>
+  </artifact>
+</component>
