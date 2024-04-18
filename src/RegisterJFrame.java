@@ -55,7 +55,7 @@ public class RegisterJFrame extends JFrame implements ActionListener {
         contrasenia.setBounds(175 - (anchura+10), 125, anchura+12, 20);
         getContentPane().add(contrasenia);
 
-        JButton ojos = new JButton(new ImageIcon("src/imagenes/"+ojosIconDirectorio +"Eyes.png"));
+        JButton ojos = new JButton(new ImageIcon("imagenes/"+ojosIconDirectorio +"Eyes.png"));
         ojos.setBounds(375, 125, 28, 20);
         ojos.setActionCommand("EyesChange");
         ojos.addActionListener(this);
@@ -138,7 +138,7 @@ public class RegisterJFrame extends JFrame implements ActionListener {
         });
         getContentPane().add(registrarse);
 
-        JLabel background = new JLabel(new ImageIcon("src/imagenes/background.png"));
+        JLabel background = new JLabel(new ImageIcon("imagenes/background.png"));
         background.setBounds(0 ,0, 470, 390);
 
 
