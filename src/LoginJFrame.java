@@ -4,6 +4,8 @@ import util.CodeUtil;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LoginJFrame extends JFrame implements ActionListener {
     private final JMenu idiomas = new JMenu();
@@ -13,6 +15,7 @@ public class LoginJFrame extends JFrame implements ActionListener {
     private JTextField nombreIntro;
     private JPasswordField contraseniaIntro;
     private JTextField verificacionIntro;
+    private JButton iniciarSesion;
     private String ojosIconDirectorio = "close";
     private String codigoDeVerificacion = CodeUtil.getCode();
 
@@ -96,7 +99,18 @@ public class LoginJFrame extends JFrame implements ActionListener {
         getContentPane().add(verificacion);
 
         verificacionIntro = new JTextField();
+        verificacionIntro.setActionCommand("verificacionIntro");
         verificacionIntro.setBounds(175, 186, 100, 20);
+        verificacionIntro.setFocusTraversalKeysEnabled(false);
+        verificacionIntro.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    examinar();
+                    iniciarComponentes();
+                }
+            }
+        });
         getContentPane().add(verificacionIntro);
 
         JLabel jlabelCodVerifi = new JLabel(codigoDeVerificacion);
@@ -105,11 +119,10 @@ public class LoginJFrame extends JFrame implements ActionListener {
 
         nombre = palabras((byte)4);
         anchura = (byte) metrics.stringWidth(nombre);
-        JButton iniciarSesion = new JButton(nombre);
+        iniciarSesion = new JButton(nombre);
         iniciarSesion.setBounds(145-anchura, 250, anchura+80, 38);
         iniciarSesion.setFont(new Font("Montserrat",Font.BOLD, 18));
         iniciarSesion.setFocusPainted(false);
-        iniciarSesion.setFocusable(false);
         iniciarSesion.setBackground(new Color(255, 208, 109));
         iniciarSesion.addMouseListener(new MouseAdapter() {
             Color original;
@@ -124,31 +137,6 @@ public class LoginJFrame extends JFrame implements ActionListener {
                 iniciarSesion.setBackground(original);
                 examinar();
                 iniciarComponentes();
-            }
-
-            private void examinar() {
-                if (UsuariosManejador.getCantidad() != 0){
-                    String nombre = nombreIntro.getText();
-                    String contrasenia = getContrasenia();
-                    if (codigoDeVerificacion.equals(verificacionIntro.getText())) {
-                        UsuariosManejador.Usuario usuario = UsuariosManejador.getUsuario(UsuariosManejador.getPosiUsuario(nombreIntro.getText(), 0));
-                        if (usuario == null) {
-                            JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 6), "", JOptionPane.ERROR_MESSAGE);
-                        } else if (!usuario.getContrasenia().equals(getContrasenia())) {
-                            JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 7), "", JOptionPane.ERROR_MESSAGE);
-                            nombreIntro.setText(nombre);
-                        } else {
-                            GameJFrame game = new GameJFrame();
-                            game.cargarDados(usuario);
-                            dispose();
-                        }
-                    }else {
-                        JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 8));
-                        codigoDeVerificacion = CodeUtil.getCode();
-                        nombreIntro.setText(nombre);
-                        contraseniaIntro.setText(contrasenia);
-                    }
-                }
             }
         });
         getContentPane().add(iniciarSesion);
@@ -185,6 +173,31 @@ public class LoginJFrame extends JFrame implements ActionListener {
         getContentPane().repaint();
     }
 
+    private void examinar() {
+        if (UsuariosManejador.getCantidad() != 0){
+            String nombre = nombreIntro.getText();
+            String contrasenia = getContrasenia();
+            if (codigoDeVerificacion.equals(verificacionIntro.getText())) {
+                UsuariosManejador.Usuario usuario = UsuariosManejador.getUsuario(UsuariosManejador.getPosiUsuario(nombreIntro.getText(), 0));
+                if (usuario == null) {
+                    JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 6), "", JOptionPane.ERROR_MESSAGE);
+                } else if (!usuario.getContrasenia().equals(getContrasenia())) {
+                    JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 7), "", JOptionPane.ERROR_MESSAGE);
+                    nombreIntro.setText(nombre);
+                } else {
+                    GameJFrame game = new GameJFrame();
+                    game.cargarDados(usuario);
+                    dispose();
+                }
+            }else {
+                JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 8));
+                codigoDeVerificacion = CodeUtil.getCode();
+                nombreIntro.setText(nombre);
+                contraseniaIntro.setText(contrasenia);
+            }
+        }
+    }
+
     private static FontMetrics getMetrics() {
         BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         // 从BufferedImage中获取Graphics对象
@@ -197,6 +210,10 @@ public class LoginJFrame extends JFrame implements ActionListener {
         setSize(488, 430);
         setTitle("Log In");
         //setAlwaysOnTop(true); //Siempre fijado en la cima
+        Set<AWTKeyStroke> traversalKeys = new HashSet<>();
+        traversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
+        traversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_TAB, 0));
+        setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, traversalKeys);
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(null);
@@ -219,6 +236,7 @@ public class LoginJFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String comandos = e.getActionCommand();
+        System.out.println(comandos);
         String contrasenia = getContrasenia();
         String nombre = nombreIntro.getText();
         String verifica = verificacionIntro.getText();

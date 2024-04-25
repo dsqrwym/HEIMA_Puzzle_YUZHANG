@@ -1,10 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.util.HashSet;
+import java.util.Set;
 
 public class RegisterJFrame extends JFrame implements ActionListener {
     private final JMenu idiomas = new JMenu();
@@ -78,6 +77,16 @@ public class RegisterJFrame extends JFrame implements ActionListener {
 
         contraseniaIntroRepite = new JPasswordField();
         contraseniaIntroRepite.setBounds(175, 186, 200, 20);
+        contraseniaIntroRepite.setFocusTraversalKeysEnabled(false);
+        contraseniaIntroRepite.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    examinar();
+                    iniciarComponentes();
+                }
+            }
+        });
         getContentPane().add(contraseniaIntroRepite);
 
         nombre = palabras((byte)4);
@@ -101,40 +110,6 @@ public class RegisterJFrame extends JFrame implements ActionListener {
                 registrarse.setBackground(original);
                 examinar();
             }
-            private void examinar() {
-                String nombre = nombreIntro.getText();
-                String contrasenia = getContrasenia(contraseniaIntro);
-                String contraseniaRepetida = getContrasenia(contraseniaIntroRepite);
-
-                if (nombre.isEmpty()) {
-                    mostrarError(palabras((byte) 5));
-                    return;
-                }
-
-                if (contrasenia.isEmpty()) {
-                    mostrarError(palabras((byte) 7));
-                    nombreIntro.setText(nombre);
-                    return;
-                }
-
-                if (!contrasenia.equals(contraseniaRepetida)) {
-                    mostrarError(palabras((byte) 8));
-                    return;
-                }
-
-                if (UsuariosManejador.getPosiUsuario(nombre, 0) != -1) {
-                    mostrarError(palabras((byte)6));
-                    return;
-                }
-
-                UsuariosManejador.aniadeUsuario(nombre, contrasenia);
-                JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 9));
-                new LoginJFrame();
-                dispose();
-            }
-            private void mostrarError(String mensaje) {
-                JOptionPane.showInternalMessageDialog(getContentPane(), mensaje, "", JOptionPane.WARNING_MESSAGE);
-            }
         });
         getContentPane().add(registrarse);
 
@@ -150,6 +125,41 @@ public class RegisterJFrame extends JFrame implements ActionListener {
         Graphics2D g2d = img.createGraphics();
         // 使用Graphics对象获取FontMetrics对象
         return g2d.getFontMetrics();
+    }
+
+    private void examinar() {
+        String nombre = nombreIntro.getText();
+        String contrasenia = getContrasenia(contraseniaIntro);
+        String contraseniaRepetida = getContrasenia(contraseniaIntroRepite);
+
+        if (nombre.isEmpty()) {
+            mostrarError(palabras((byte) 5));
+            return;
+        }
+
+        if (contrasenia.isEmpty()) {
+            mostrarError(palabras((byte) 7));
+            nombreIntro.setText(nombre);
+            return;
+        }
+
+        if (!contrasenia.equals(contraseniaRepetida)) {
+            mostrarError(palabras((byte) 8));
+            return;
+        }
+
+        if (UsuariosManejador.getPosiUsuario(nombre, 0) != -1) {
+            mostrarError(palabras((byte)6));
+            return;
+        }
+
+        UsuariosManejador.aniadeUsuario(nombre, contrasenia);
+        JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 9));
+        new LoginJFrame();
+        dispose();
+    }
+    private void mostrarError(String mensaje) {
+        JOptionPane.showInternalMessageDialog(getContentPane(), mensaje, "", JOptionPane.WARNING_MESSAGE);
     }
 
     private void conficurarMenu() {
@@ -173,6 +183,10 @@ public class RegisterJFrame extends JFrame implements ActionListener {
     private void iniciarJFrame() {
         setSize(488, 430);
         setTitle("Register");
+        Set<AWTKeyStroke> traversalKeys = new HashSet<>();
+        traversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
+        traversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_TAB, 0));
+        setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, traversalKeys);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
