@@ -236,7 +236,6 @@ public class LoginJFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String comandos = e.getActionCommand();
-        System.out.println(comandos);
         String contrasenia = getContrasenia();
         String nombre = nombreIntro.getText();
         String verifica = verificacionIntro.getText();

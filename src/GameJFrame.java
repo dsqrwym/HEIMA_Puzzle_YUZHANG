@@ -385,7 +385,6 @@ public class GameJFrame extends JFrame implements ActionListener {
         if (posicion != -1) {
             UsuariosManejador.Usuario usuario = new UsuariosManejador.Usuario(nombre, contrasenia, directorio, pasos, posicionImagen, posicionVacioX, posicionVacioY);
             UsuariosManejador.setUsuarios(posicion, usuario);
-            System.out.println(usuario.isNuevoUsuario());
         }
     }
     public void cargarDados(UsuariosManejador.Usuario usuario){
