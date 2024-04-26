@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class GameJFrame extends JFrame implements ActionListener {
     private String nombre;
@@ -21,8 +24,8 @@ public class GameJFrame extends JFrame implements ActionListener {
     private byte posicionVacioX;
     private byte posicionVacioY;
     private int pasos;
-    private byte imagenId = (byte) (aleatorio.nextInt(12)+1);
     private String directorioTipo = "animal";
+    private byte imagenId = (byte) (aleatorio.nextInt(getCantidaDeDirectorioEnDirectorio("imagenes/"+directorioTipo))+1);
     private String directorio = directorioTipo+"/"+directorioTipo+imagenId+"/";
     private final JMenu cambiarImagenes = new JMenu();
     private final JMenu funciones = new JMenu();
@@ -334,9 +337,6 @@ public class GameJFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String comandos = e.getActionCommand();
-        byte cantidadPersonajes = 12;
-        byte cantidadAnimales = 12;
-        byte cantidadDeportivos = 10;
         switch (comandos){
             case "English":
                 App.cambiarIdiomas((byte) 1);
@@ -361,25 +361,35 @@ public class GameJFrame extends JFrame implements ActionListener {
                 System.exit(0);
                 break;
             case "Personajes":
-                cambiarAlImagenes("girl", cantidadPersonajes);
+                cambiarAlImagenes("girl");
                 break;
             case "Animales":
-                cambiarAlImagenes("animal", cantidadAnimales);
+                cambiarAlImagenes("animal");
                 break;
             case "Deportivos":
-                cambiarAlImagenes("sport", cantidadDeportivos);
+                cambiarAlImagenes("sport");
                 break;
         }
         iniciarMenu();
         iniciarImagenes();
     }
-    private void cambiarAlImagenes (String tipo, byte cantidad) {
+    private void cambiarAlImagenes (String tipo) {
         directorioTipo = tipo;
-        imagenId = (byte) (aleatorio.nextInt(cantidad)+1);
         directorio = directorioTipo+"/"+directorioTipo+imagenId+"/";
+        byte cantidad = getCantidaDeDirectorioEnDirectorio("imagenes/"+directorioTipo);
+        imagenId = (byte) (aleatorio.nextInt(cantidad)+1);
         iniciarPosiciones();
         pasos = 0;
     }
+
+    private byte getCantidaDeDirectorioEnDirectorio(String directorio) {
+        return (byte) Stream.of(Objects.requireNonNull(
+                new File(directorio).listFiles()
+                        )
+                ).filter(File::isDirectory)
+        .count();
+    }
+
     private void almacenarDados(){
         int posicion = UsuariosManejador.getPosiUsuario(nombre, 0);
         if (posicion != -1) {
