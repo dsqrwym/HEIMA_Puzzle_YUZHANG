@@ -25,7 +25,7 @@ public class GameJFrame extends JFrame implements ActionListener {
     private byte posicionVacioY;
     private int pasos;
     private String directorioTipo = "animal";
-    private byte imagenId = 12;//(byte) (aleatorio.nextInt(getCantidaDeDirectorioEnDirectorio("imagenes/"+directorioTipo))+1);
+    private byte imagenId = (byte) (aleatorio.nextInt(getCantidaDeDirectorioEnDirectorio("imagenes/"+directorioTipo))+1);
     private String directorio = directorioTipo+"/"+directorioTipo+imagenId+"/";
     private final JMenu cambiarImagenes = new JMenu();
     private final JMenu funciones = new JMenu();
