@@ -14,6 +14,7 @@ public class LoginJFrame extends JFrame implements ActionListener {
     private final JMenuItem chino = new JMenuItem("中文");
     private JTextField nombreIntro;
     private JPasswordField contraseniaIntro;
+    private JLabel jlabelCodVerifi;
     private JTextField verificacionIntro;
     private JButton iniciarSesion;
     private String ojosIconDirectorio = "close";
@@ -113,7 +114,7 @@ public class LoginJFrame extends JFrame implements ActionListener {
         });
         getContentPane().add(verificacionIntro);
 
-        JLabel jlabelCodVerifi = new JLabel(codigoDeVerificacion);
+        jlabelCodVerifi = new JLabel(codigoDeVerificacion);
         jlabelCodVerifi.setBounds(280, 186, 50, 20);
         getContentPane().add(jlabelCodVerifi);
 
@@ -136,7 +137,6 @@ public class LoginJFrame extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 iniciarSesion.setBackground(original);
                 examinar();
-                iniciarComponentes();
             }
         });
         getContentPane().add(iniciarSesion);
@@ -178,12 +178,13 @@ public class LoginJFrame extends JFrame implements ActionListener {
             String nombre = nombreIntro.getText();
             String contrasenia = getContrasenia();
             if (codigoDeVerificacion.equals(verificacionIntro.getText())) {
-                UsuariosManejador.Usuario usuario = UsuariosManejador.getUsuario(UsuariosManejador.getPosiUsuario(nombreIntro.getText(), 0));
+                UsuariosManejador.Usuario usuario = UsuariosManejador.getUsuario(UsuariosManejador.getPosiUsuario(nombre, 0));
                 if (usuario == null) {
                     JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 6), "", JOptionPane.ERROR_MESSAGE);
-                } else if (!usuario.getContrasenia().equals(getContrasenia())) {
+                    nombreIntro.setText(null);
+                } else if (!usuario.getContrasenia().equals(contrasenia)) {
                     JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 7), "", JOptionPane.ERROR_MESSAGE);
-                    nombreIntro.setText(nombre);
+                    contraseniaIntro.setText(null);
                 } else {
                     GameJFrame game = new GameJFrame();
                     game.cargarDados(usuario);
@@ -191,11 +192,13 @@ public class LoginJFrame extends JFrame implements ActionListener {
                 }
             }else {
                 JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 8));
-                codigoDeVerificacion = CodeUtil.getCode();
-                nombreIntro.setText(nombre);
-                contraseniaIntro.setText(contrasenia);
             }
+        }else {
+            JOptionPane.showInternalMessageDialog(getContentPane(), palabras((byte) 6), "", JOptionPane.ERROR_MESSAGE);
         }
+        codigoDeVerificacion = CodeUtil.getCode();
+        jlabelCodVerifi.setText(codigoDeVerificacion);
+        verificacionIntro.setText(null);
     }
 
     private static FontMetrics getMetrics() {

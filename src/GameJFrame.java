@@ -25,7 +25,7 @@ public class GameJFrame extends JFrame implements ActionListener {
     private byte posicionVacioY;
     private int pasos;
     private String directorioTipo = "animal";
-    private byte imagenId = (byte) (aleatorio.nextInt(getCantidaDeDirectorioEnDirectorio("imagenes/"+directorioTipo))+1);
+    private byte imagenId = 12;//(byte) (aleatorio.nextInt(getCantidaDeDirectorioEnDirectorio("imagenes/"+directorioTipo))+1);
     private String directorio = directorioTipo+"/"+directorioTipo+imagenId+"/";
     private final JMenu cambiarImagenes = new JMenu();
     private final JMenu funciones = new JMenu();
@@ -270,7 +270,7 @@ public class GameJFrame extends JFrame implements ActionListener {
         animales.setActionCommand("Animales");
         deportivos.setText(palabras((byte) 10));
         deportivos.setActionCommand("Deportivos");
-        
+
         reiniciar.setText(palabras((byte) 2));
         reiniciar.setActionCommand("Reiniciar Juego");
         reiniciarSesion.setText(palabras((byte) 3));
@@ -285,7 +285,7 @@ public class GameJFrame extends JFrame implements ActionListener {
         cambiarImagenes.add(personajes);
         cambiarImagenes.add(animales);
         cambiarImagenes.add(deportivos);
-        
+
         funciones.add(reiniciar);
         funciones.add(reiniciarSesion);
         funciones.add(cerrarJuego);
@@ -383,11 +383,12 @@ public class GameJFrame extends JFrame implements ActionListener {
     }
 
     private byte getCantidaDeDirectorioEnDirectorio(String directorio) {
-        return (byte) Stream.of(Objects.requireNonNull(
-                new File(directorio).listFiles()
+        return (byte) Stream.of(
+                        Objects.requireNonNull(
+                                new File(directorio).listFiles()
                         )
                 ).filter(File::isDirectory)
-        .count();
+                .count();
     }
 
     private void almacenarDados(){

@@ -1,6 +1,9 @@
 package util;
 import java.util.Random;
 public class CodeUtil {
+    private CodeUtil() {
+    }
+
     public static String getCode(){
         //1.创建一个数组
         char[] caracteres = new char[52];//52  索引的范围：0 ~ 51
