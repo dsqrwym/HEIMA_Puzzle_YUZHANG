@@ -2,8 +2,9 @@ public class App  {
     public static String idioma = "EN";
 
     public static void main(String[] args){
+        UsuariosManejador.cargarDatos();
+        //UsuariosManejador.aniadeUsuario("yuzhang", "yuzhang2004210");
         new LoginJFrame();
-        UsuariosManejador.aniadeUsuario("yuzhang", "yuzhang2004210");
     }
     public static void cambiarIdiomas(byte opcion){
         switch (opcion){

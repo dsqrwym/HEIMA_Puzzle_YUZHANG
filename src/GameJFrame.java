@@ -1,10 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.util.Objects;
 import java.util.Random;
@@ -320,7 +317,12 @@ public class GameJFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(null);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                cerrarYguardar();
+            }
+        });
     }
     private String palabras(byte i){
         if (App.idioma.equals("EN")) {
@@ -358,7 +360,7 @@ public class GameJFrame extends JFrame implements ActionListener {
                 new LoginJFrame();
                 break;
             case "Cerrar Juego":
-                System.exit(0);
+                cerrarYguardar();
                 break;
             case "Personajes":
                 cambiarAlImagenes("girl");
@@ -373,6 +375,12 @@ public class GameJFrame extends JFrame implements ActionListener {
         iniciarMenu();
         iniciarImagenes();
     }
+
+    private void cerrarYguardar() {
+        almacenarDados();
+        System.exit(0);
+    }
+
     private void cambiarAlImagenes (String tipo) {
         directorioTipo = tipo;
         directorio = directorioTipo+"/"+directorioTipo+imagenId+"/";
