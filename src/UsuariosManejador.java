@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 public class UsuariosManejador {
     private UsuariosManejador(){}
     private static final String patch = "src/puzzle.ser";
-    private static Usuario[] usuarios = new Usuario[3];
+    private static Usuario[] usuarios = new Usuario[2];
     private static int cantidad = 0;
     public static int getCantidad(){return cantidad;}
     public static void cargarDatos() {
@@ -92,7 +92,7 @@ public class UsuariosManejador {
     }
 
     private static void crecerArray(Usuario usuario) {
-        Usuario[] nuevoArray = new Usuario[usuarios.length+5];
+        Usuario[] nuevoArray = new Usuario[usuarios.length+3];
         System.arraycopy(usuarios, 0, nuevoArray, 0, usuarios.length);
         nuevoArray[usuarios.length] = usuario;
         usuarios = nuevoArray;
