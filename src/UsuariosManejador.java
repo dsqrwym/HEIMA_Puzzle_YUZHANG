@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 public class UsuariosManejador {
     private UsuariosManejador(){}
     private static final String patch = "src/puzzle.ser";
-    private static Usuario[] usuarios = new Usuario[2];
+    private static Usuario[] usuarios = new Usuario[3];
     private static int cantidad = 0;
     public static int getCantidad(){return cantidad;}
     public static void cargarDatos() {
