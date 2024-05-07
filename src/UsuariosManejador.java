@@ -11,21 +11,14 @@ public class UsuariosManejador {
     public static void cargarDatos() {
         File datos = new File(patch);
         if (datos.exists()){
-            ObjectInputStream input = null;
+            ObjectInputStream input;
             try {
                 input = new ObjectInputStream(Files.newInputStream(Paths.get(patch)));
                 usuarios = (Usuario[]) input.readObject();
                 cantidad = contarCantidad();
+                input.close();
             } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
-            } finally {
-                if (input!=null){
-                    try {
-                        input.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
             }
         }else {
             almacenarDatos();
@@ -43,20 +36,13 @@ public class UsuariosManejador {
     }
 
     public static void almacenarDatos() {
-        ObjectOutputStream out = null;
+        ObjectOutputStream out;
         try {
             out = new ObjectOutputStream(Files.newOutputStream(Paths.get(patch)));
             out.writeObject(usuarios);
+            out.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         }
     }
     public static int getPosiUsuario(String nombre, int index){
