@@ -46,7 +46,7 @@ public class UsuariosManejador {
         }
     }
     public static int getPosiUsuario(String nombre, int index){
-        if (index< usuarios.length) {
+        if (index< cantidad) {
             Usuario usuarioEnIndex = usuarios[index];
             if (usuarioEnIndex.nombre.equals(nombre)){
                 return index;
