@@ -21,6 +21,8 @@ public class GameJFrame extends JFrame implements ActionListener {
     private byte posicionVacioX;
     private byte posicionVacioY;
     private int pasos;
+    private boolean sumaPasos = true;
+    private boolean win = false;
     private String directorioTipo = "animal";
     private byte imagenId = (byte) (aleatorio.nextInt(getCantidaDeDirectorioEnDirectorio("imagenes/"+directorioTipo))+1);
     private String directorio = directorioTipo+"/"+directorioTipo+imagenId+"/";
@@ -64,7 +66,7 @@ public class GameJFrame extends JFrame implements ActionListener {
                                 posicionImagen[posicionVacioX][posicionVacioY] = posicionImagen[posicionVacioX][nuevoPosicion];
                                 posicionImagen[posicionVacioX][nuevoPosicion] = 0;
                                 posicionVacioY--;
-                                pasos++;
+                                if (sumaPasos && !win){pasos++;}
                             }
                             break;
                         case KeyEvent.VK_RIGHT:
@@ -74,7 +76,7 @@ public class GameJFrame extends JFrame implements ActionListener {
                                 posicionImagen[posicionVacioX][posicionVacioY] = posicionImagen[nuevoPosicion][posicionVacioY];
                                 posicionImagen[nuevoPosicion][posicionVacioY] = 0;
                                 posicionVacioX++;
-                                pasos++;
+                                if (sumaPasos && !win){pasos++;}
                             }
                             break;
                         case KeyEvent.VK_DOWN:
@@ -84,7 +86,7 @@ public class GameJFrame extends JFrame implements ActionListener {
                                 posicionImagen[posicionVacioX][posicionVacioY] = posicionImagen[posicionVacioX][nuevoPosicion];
                                 posicionImagen[posicionVacioX][nuevoPosicion] = 0;
                                 posicionVacioY++;
-                                pasos++;
+                                if (sumaPasos && !win){pasos++;}
                             }
                             break;
                         case KeyEvent.VK_A:
@@ -94,7 +96,7 @@ public class GameJFrame extends JFrame implements ActionListener {
                                 posicionImagen[posicionVacioX][posicionVacioY] = posicionImagen[nuevoPosicion][posicionVacioY];
                                 posicionImagen[nuevoPosicion][posicionVacioY] = 0;
                                 posicionVacioX--;
-                                pasos++;
+                                if (sumaPasos && !win){pasos++;}
                             }
                             break;
                     }
@@ -146,6 +148,7 @@ public class GameJFrame extends JFrame implements ActionListener {
                 }
             }
         }
+        win = true;
         return true;
     }
     private void mostarImagenCompleta() {
@@ -222,7 +225,8 @@ public class GameJFrame extends JFrame implements ActionListener {
     }
     private void iniciarImagenes() {
         getContentPane().removeAll();
-        if (victoria()){
+        sumaPasos = !victoria();
+        if (!sumaPasos){
             JLabel victoria = new JLabel(new ImageIcon("imagenes/" +palabras((byte)5) +".png"));
             victoria.setBounds(150, 180, 300, 300);
             getContentPane().add(victoria);
@@ -353,6 +357,7 @@ public class GameJFrame extends JFrame implements ActionListener {
                 desOrdenarBidimensional(posicionImagen);
                 buscaCeroRestablecerXY();
                 pasos = 0;
+                win = false;
                 break;
             case "Reiniciar Sesión":
                 almacenarDados();
@@ -388,6 +393,7 @@ public class GameJFrame extends JFrame implements ActionListener {
         imagenId = (byte) (aleatorio.nextInt(cantidad)+1);
         iniciarPosiciones();
         pasos = 0;
+        win = false;
     }
 
     private byte getCantidaDeDirectorioEnDirectorio(String directorio) {
