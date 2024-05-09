@@ -57,13 +57,13 @@ public class UsuariosManejador {
         return -1;
     }
     public static void setUsuarios(int index, Usuario nuevoUsuario){
-        if (index< usuarios.length && index>=0) {
+        if (index< cantidad && index>=0) {
             usuarios[index] = nuevoUsuario;
             almacenarDatos();
         }
     }
     public static Usuario getUsuario(int index){
-        if (index< usuarios.length && index>=0) {
+        if (index< cantidad && index>=0) {
             return usuarios[index];
         }
         return null;
