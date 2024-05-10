@@ -390,7 +390,11 @@ public class GameJFrame extends JFrame implements ActionListener {
         directorioTipo = tipo;
         directorio = directorioTipo+"/"+directorioTipo+imagenId+"/";
         byte cantidad = getCantidaDeDirectorioEnDirectorio("imagenes/"+directorioTipo);
-        imagenId = (byte) (aleatorio.nextInt(cantidad)+1);
+        byte nuevoId;
+        do {
+            nuevoId = (byte) (aleatorio.nextInt(cantidad) + 1);
+        } while (nuevoId == imagenId);
+        imagenId = nuevoId;
         iniciarPosiciones();
         pasos = 0;
         win = false;
