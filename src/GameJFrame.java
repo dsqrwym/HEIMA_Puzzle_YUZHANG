@@ -388,13 +388,13 @@ public class GameJFrame extends JFrame implements ActionListener {
 
     private void cambiarAlImagenes (String tipo) {
         directorioTipo = tipo;
-        directorio = directorioTipo+"/"+directorioTipo+imagenId+"/";
         byte cantidad = getCantidaDeDirectorioEnDirectorio("imagenes/"+directorioTipo);
         byte nuevoId;
         do {
             nuevoId = (byte) (aleatorio.nextInt(cantidad) + 1);
         } while (nuevoId == imagenId);
         imagenId = nuevoId;
+        directorio = directorioTipo+"/"+directorioTipo+imagenId+"/";
         iniciarPosiciones();
         pasos = 0;
         win = false;
