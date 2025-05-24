@@ -39,7 +39,9 @@ Este es un juego de rompecabezas desarrollado en Java basado en el tutorial en v
 
 ## 🎞️ 演示视频 Demo Video | Video de Demostración
 
-<video src="Readme-Resource/simpledemo.mp4" controls width="600"></video>
+<video src="Readme-Resource/simpledemo.mp4" controls width="600">
+  Your browser does not support the video tag.
+</video>
 
 ---
 
