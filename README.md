@@ -39,7 +39,7 @@ Este es un juego de rompecabezas desarrollado en Java basado en el tutorial en v
 
 ## 🎞️ 演示视频 Demo Video | Video de Demostración
 
-![Simple Demo](Readme-Resource/simpledemo.mp4)
+![Simple Demo](https://github.com/dsqrwym/HEIMA_Puzzle_YUZHANG/blob/main/Readme-Resource/simpledemo.mp4)
 
 ---
 
