@@ -27,13 +27,19 @@ Este es un juego de rompecabezas desarrollado en Java basado en el tutorial en v
 ## 📸 截图 Screenshots | Capturas de pantalla
 
 ### 🖼 登录界面 Login Interface | Interfaz de Inicio de Sesión
-![Login Screenshot](images/login_screenshot.png)
+![Login Screenshot](Readme-Resource/login.png)
 
 ### 🖼 注册界面 Register Interface | Interfaz de Registro
-![Register Screenshot](images/register_screenshot.png)
+![Register Screenshot](Readme-Resource/register.png)
 
 ### 🧩 游戏界面 Game Interface | Interfaz del Juego
-![Game Screenshot](images/game_screenshot.png)
+![Game Screenshot](Readme-Resource/main.png)
+
+---
+
+## 🎞️ 演示视频 Demo Video | Video de Demostración
+
+<video src="Readme-Resource/simpledemo.mp4" controls width="600"></video>
 
 ---
 
@@ -42,6 +48,3 @@ Este es un juego de rompecabezas desarrollado en Java basado en el tutorial en v
 欢迎任何人对该项目进行优化与扩展！  
 Anyone is welcome to optimize or extend the project.  
 ¡Cualquiera puede optimizar o extender el proyecto!
-
----
-
